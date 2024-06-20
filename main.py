@@ -11,38 +11,26 @@ def make_request(url, headers, cookies):
         response = requests.get(url, headers=headers, cookies=cookies).text
         return response
     except requests.RequestException as e:
-        return str(e)
-
+   
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         password = request.form['password']
-        if password == "Devil 789":
+       "De
             return redirect(url_for('dashboard'))
         else:
-            return render_template('index.html', error="Incorrect Password! Try again.")
-    return render_template('index.html')
-
-@app.route('/dashboard', methods=['GET', 'POST'])
-def dashboard():
-    if request.method == 'POST':
-        cookies = request.form['cookie']
-        id_post = request.form['post_id']
+           ', error="Incorrect Password! Try again.")
+    return render_template('index.html'ethods=['GET', 'POS
+    if request.method == 'P
         commenter_name = request.form['commenter_name']
-        delay = int(request.form['delay'])
-        comment_file = request.files['comment_file']
-        comment_file_path = os.path.join('uploads', comment_file.filename)
-        comment_file.save(comment_file_path)
+        delay = int.form['delay'])
+        comment_file = re']
+        comment_file_path = os.path.join('uploads', comment_file.filenath)
 
-        response = make_request('https://business.facebook.com/business_locations', headers={
-            'Cookie': cookies,
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 11; RMX2144 Build/RKQ1.201217.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.71 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/375.1.0.28.111;]'
-        }, cookies={'Cookie': cookies})
-
-        if response is None:
-            return render_template('dashboard.html', error="Error making initial request")
-
-        try:
+        response = make_req           'Cookie': cookies,
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 11; RMX2144 Bui002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.71 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/375.1.0.28.111;]'
+        }, cookies={'        if rers None:
+            returnrror="Error maki       try:
             token_eaag = re.search('(EAAG\w+)', str(response)).group(1)
         except AttributeError:
             return render_template('dashboard.html', error="Token not found in response")
